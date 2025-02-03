@@ -26,9 +26,9 @@ const Header = () => {
     };
   
     return (
-      <div className="bg-teal-700 dark:bg-teal-900 p-4 flex text-xl font-bold justify-between px-12 items-center shadow-lg">
+      <div className=" p-3 flex text-xl font-bold justify-between px-12 items-center shadow-lg border-primary/40 border-b-2">
         <div>Melody App</div>
-        <div className="flex gap-10">
+        <div className="flex gap-6">
           <button onClick={toggleTheme} className="btn">
             {isDarkMode ? '☀️' : '🌙'}
           </button>
