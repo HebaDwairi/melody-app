@@ -26,7 +26,7 @@ const Header = () => {
     };
   
     return (
-      <div className=" p-3 flex text-xl font-bold justify-between px-12 items-center shadow-lg border-primary/40 border-b-2">
+      <div className=" p-3 flex text-xl font-bold justify-between px-12 items-center border-primary/40 border-b-2">
         <div>Melody App</div>
         <div className="flex gap-6">
           <button onClick={toggleTheme} className="btn">

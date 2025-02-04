@@ -1,6 +1,6 @@
 const Settings = () => {
     return (
-      <div className="bg-secondary dark:bg-secondary-d  p-6 m-6 rounded-md flex flex-col gap-2 w-55 shadow-lg mr-0 font-bold">
+      <div className="bg-secondary dark:bg-secondary-d  p-6 m-6 rounded-md flex flex-col gap-2 w-55 mr-0 font-bold">
         <div className="space-y-2">
           <label className="block">Scale</label>
           <select className="inp">
