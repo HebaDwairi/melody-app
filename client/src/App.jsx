@@ -30,7 +30,7 @@ const App = () => {
         <Settings setOptions={setOptions} options={options}/>
         <div className="flex flex-col flex-1 overflow-hidden gap-0">
           <NotesView />
-          <Controls onGenerate={handleGenerateMelody} onPlay={handlePlayMelody}/>
+          <Controls onGenerate={handleGenerateMelody} onPlay={handlePlayMelody} melody={curMelody}/>
         </div>
       </div>
     </div>
