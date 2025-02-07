@@ -10,7 +10,9 @@ const App = () => {
   const [options, setOptions] = useState({
     scale: 'All scales',
     length: 4,
-    bpm: 120
+    bpm: 120,
+    tuning: 'D standard',
+    synth: 'Default'
   });
 
   const handleGenerateMelody = () => {

@@ -1,35 +1,51 @@
 import { Note } from "tonal";
 import NoteDetector from "../services/NoteDetector";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Controls = ({onPlay, onGenerate, melody}) => {
-  const [detectedNote, setDetectedNote] = useState(null);
-  const [noteNum, setNoteNum] = useState(0);
+  const [detectedNote, setDetectedNote] = useState({note: null, count: 0});
   const [res, setRes] = useState('');
+  const [isRecording, setIsRecording] = useState(false);
+  const detectorRef = useRef(null);
+
 
   const handleRecording = () => {
-    const detector = new NoteDetector(setDetectedNote);
-    detector.start();
+    if(!detectorRef.current){
+      detectorRef.current = new NoteDetector(setDetectedNote);
+      detectorRef.current.start();
+    }
+    else{
+      stopRecording();
+    }
+    setIsRecording(!isRecording);
+  }
+
+  const stopRecording = () => {
+    if(detectorRef.current){
+      detectorRef.current.stop();
+      detectorRef.current = null;
+      setIsRecording(!isRecording);
+    }
   }
 
   useEffect(() => {
-    if(detectedNote !== null){
-      if(noteNum === melody.length){
-        //stop recording, i need make a function for that
+    if(detectedNote.note !== null){
+      if(detectedNote.count === melody.length){
+        stopRecording();
+        setRes("");
       }
       else{
-        console.log(detectedNote, melody[noteNum]);
-        const frq1 = Note.freq(melody[noteNum].note);
-        const frq2 = Note.freq(detectedNote);
+        console.log(detectedNote, melody[detectedNote.count]);
+        const midi1 = Note.midi(melody[detectedNote.count].note) % 12;
+        const midi2 = Note.midi(detectedNote.note) % 12;
 
         //temporary way to display result
-        if(frq1 === frq2){
+        if(midi1 === midi2){
           setRes(res.concat(' correct'));
         }
         else{
           setRes(res.concat(' wrong'));
         }
-        setNoteNum(noteNum + 1);
       }
     }
   }, [detectedNote]);
@@ -43,7 +59,7 @@ const Controls = ({onPlay, onGenerate, melody}) => {
         Play
       </button>
       <button className="btn" onClick={handleRecording}>
-        Record
+       {isRecording ? "stop" : "record"}
       </button>
       <p>{res}</p>
     </div>
