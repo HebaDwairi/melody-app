@@ -25,7 +25,7 @@ with the above license.
 import { Note } from "tonal";
 
 class NoteDetector {
-  constructor (updateNote) {
+  constructor () {
     this.audioContext = null;
     this.analyzer = null;
     this.source = null;
@@ -35,8 +35,8 @@ class NoteDetector {
     this.smoothingCount = 0;
     this.smoothingCountThreshold = 2;
     this.animationFrameId = null;
-    this.updateNote = updateNote;
     this.count = 0;
+    this.listeners = [];
   }
 
   start() {
@@ -86,7 +86,7 @@ class NoteDetector {
         this.prevNote = curNote;  
         if([2,3,4,5].includes(Note.octave(curNote)) && this.silence){
           this.silence = false;
-          this.updateNote({note: curNote, count: this.count});
+          this.listeners.forEach((callback) => callback(curNote, this.count));
           this.count++;
           console.log(curNote);
         }
@@ -110,6 +110,9 @@ class NoteDetector {
     }
   }
 
+  onNoteDetected(callback) {
+    this.listeners.push(callback);
+  }
 
 
   autoCorrelate(buffer, sampleRate) {

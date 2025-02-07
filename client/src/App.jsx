@@ -7,6 +7,7 @@ import melody from './services/melody';
 
 const App = () => {
   const [curMelody, setCurMelody] = useState([]);
+  const [detectedNote, setDetectedNote] = useState({note: null, count: 0});
   const [options, setOptions] = useState({
     scale: 'All scales',
     length: 4,
@@ -31,8 +32,9 @@ const App = () => {
       <div className="flex flex-1 px-14">
         <Settings setOptions={setOptions} options={options}/>
         <div className="flex flex-col flex-1 overflow-hidden gap-0">
-          <NotesView />
-          <Controls onGenerate={handleGenerateMelody} onPlay={handlePlayMelody} melody={curMelody}/>
+          <NotesView melody={curMelody} detectedNote={detectedNote}/>
+          <Controls onGenerate={handleGenerateMelody} onPlay={handlePlayMelody} 
+          melody={curMelody} setDetectedNote={setDetectedNote} detectedNote={detectedNote}/>
         </div>
       </div>
     </div>
