@@ -27,7 +27,7 @@ const App = () => {
   }
 
   return (
-    <div className="bg-background dark:bg-background-d min-h-screen flex flex-col text-text dark:text-text-d">
+    <div className="bg-background dark:bg-background-d min-h-screen flex flex-col text-text dark:text-text-d ">
       <Header />
       <div className="flex flex-1 px-14">
         <Settings setOptions={setOptions} options={options}/>
