@@ -1,12 +1,12 @@
-import { Note } from "tonal";
 import NoteDetector from "../services/NoteDetector";
 import { useEffect, useRef, useState } from "react";
 
-const Controls = ({onPlay, onGenerate, melody, setDetectedNote, detectedNote}) => {
+const Controls = ({onPlay, onGenerate, melody, setDetectedNote, detectedNote, setData}) => {
   const [isRecording, setIsRecording] = useState(false);
   const detectorRef = useRef(null);
 
   const handleRecording = () => {
+    setData([]);
     if(!detectorRef.current){
       detectorRef.current = new NoteDetector();
       detectorRef.current.start();

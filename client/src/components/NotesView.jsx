@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import { Note } from "tonal";
-import { LineChart, Line, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
+import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
 
 
 const CustomizedDot = (props) => {
@@ -39,10 +39,9 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-const NotesView = ({melody, detectedNote}) => {
+const NotesView = ({melody, detectedNote, data, setData}) => {
   const [res, setRes] = useState(0);
   const [final, setFinal] = useState('');
-  const[data, setData] = useState([]);
 
   useEffect(() => {
       if(detectedNote.note !== null){
@@ -66,7 +65,6 @@ const NotesView = ({melody, detectedNote}) => {
   
           if(midi1 === midi2){
             setRes(res + 1);
-
           }
 
           if(detectedNote.count === melody.length - 1){
