@@ -32,7 +32,7 @@ const Controls = ({onPlay, onGenerate, melody, setDetectedNote, detectedNote, se
       });
       
     }
-  }, [isRecording]); 
+  }, [isRecording, setDetectedNote]); 
   
 
   useEffect(() => {
@@ -41,6 +41,7 @@ const Controls = ({onPlay, onGenerate, melody, setDetectedNote, detectedNote, se
         stopRecording();
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detectedNote]);
 
   return (

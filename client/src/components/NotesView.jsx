@@ -40,7 +40,7 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 const NotesView = ({melody, detectedNote, data, setData}) => {
-  const [res, setRes] = useState(0);
+  const [res, setRes] = useState({correct: 0, distances: 0});
   const [final, setFinal] = useState('');
 
   useEffect(() => {
@@ -63,21 +63,29 @@ const NotesView = ({melody, detectedNote, data, setData}) => {
 
           setData(data.concat(dataPoint));
   
-          if(midi1 === midi2){
-            setRes(res + 1);
-          }
+          setRes((prevRes) => {
+            const newCorrect = midi1 === midi2 ? prevRes.correct + 1 : prevRes.correct;
+            const newDistances = midi1 !== midi2 ? prevRes.distances + Math.abs(midi1 - midi2) : prevRes.distances;
+            return { correct: newCorrect, distances: newDistances };
+          });
+
 
           if(detectedNote.count === melody.length - 1){
-            setFinal(`${res + ( midi1 === midi2 ? 1 : 0)} / ${melody.length}`);
-            setRes(0);
+            const errorRate = (res.distances + Math.abs(midi1 - midi2)) / (11 * melody.length);
+
+            setFinal(`${res.correct + (midi1 === midi2 ? 1 : 0)} / ${melody.length}
+               |   Accuracy: ${(100 * (1 - errorRate)).toFixed(1)}   %`);
+            setRes({correct: 0, distances: 0});
+            
           }
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [detectedNote]);
 
    useEffect(() => {
       setData([]);
       setFinal('');
-    }, [melody])
+    }, [melody, setData])
 
   return (
     <div className="bg-secondary dark:bg-secondary-d  p-6 m-6 flex-1 rounded-md mb-0 justify-center flex-col flex">

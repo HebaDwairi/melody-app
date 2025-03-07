@@ -31,7 +31,6 @@ class NoteDetector {
     this.source = null;
     this.silence = false;
     this.prevNote = null;
-    // smoothing count threshold determines the number of iterations the note should be the same 
     this.smoothingCount = 0;
     this.smoothingCountThreshold = 2;
     this.animationFrameId = null;
@@ -124,7 +123,7 @@ class NoteDetector {
       sumOfSquares += val * val;
     }
     var rootMeanSquare = Math.sqrt(sumOfSquares / SIZE)
-    if (rootMeanSquare < 0.04) {
+    if (rootMeanSquare < 0.02) {
       return -1;
     }
   
@@ -200,4 +199,4 @@ class NoteDetector {
 }
 
 
-  export default NoteDetector;
+export default NoteDetector;
