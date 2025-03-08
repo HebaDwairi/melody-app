@@ -6,20 +6,21 @@ const melodySchema = new mongoose.Schema({
   correct: Number,
   accuracy: Number,
   result:String,
-  timestamp: {
-    type: Date,
-    default: Date().now
-  },
   user: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'User',
   },
+},
+{
+  timestamps: true,
 });
 
-melodySchema.set('toJSON', (document, returnedObj) => {
-  returnedObj.id = returnedObj._id;
-  delete returnedObj._id;
-  delete returnedObj.__v;
+melodySchema.set('toJSON', {
+  transform: (document, returnedObj) => {
+    returnedObj.id = returnedObj._id;
+    delete returnedObj._id;
+    delete returnedObj.__v;
+  }
 });
 
 const melodyModel = mongoose.model('Melody', melodySchema);

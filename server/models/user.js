@@ -8,24 +8,25 @@ const userSchema = new mongoose.Schema({
     max: 20,
     unique: true,
   },
-  email: {
+  name: {
     type: String,
     required: true,
-    unique: true,
-    max: 50,
+    min: 3,
   },
   passwordHash: String,
-  melodies: {
+  melodies: [{
     type:mongoose.SchemaTypes.ObjectId,
     ref: 'Melody',
-  }
+  }]
 });
 
-userSchema.set('toJSON', (document, returnedObj) => {
-  returnedObj.id = returnedObj._id;
-  delete returnedObj._id;
-  delete returnedObj.__v;
-  delete returnedObj.passwordHash;
+userSchema.set('toJSON', {
+  transform: (document, returnedObj) => {
+    returnedObj.id = returnedObj._id;
+    delete returnedObj._id;
+    delete returnedObj.__v;
+    delete returnedObj.passwordHash;
+  }
 });
 
 const userModel = mongoose.model('User', userSchema);
