@@ -31,9 +31,10 @@ const userExtractor = async (request, response, next) => {
       }
 
       request.user = user;
+      next();
     }
     else {
-      response.status(401).json({error: 'token is missing'});
+      return response.status(401).json({error: 'token is missing'});
     }
   }
   catch (err) {

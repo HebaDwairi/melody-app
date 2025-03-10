@@ -32,3 +32,5 @@ router.post('/', async (request, response, next) => {
     next(error);
   }
 });
+
+module.exports = router;

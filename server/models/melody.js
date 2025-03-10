@@ -10,9 +10,9 @@ const melodySchema = new mongoose.Schema({
     required: true,
   }],
   scale: String,
-  correct: Number,
+  correct: Boolean,
   accuracy: Number,
-  result:String,
+  result: Number,
   user: {
     type: mongoose.SchemaTypes.ObjectId,
     ref: 'User',
