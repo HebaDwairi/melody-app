@@ -1,8 +1,15 @@
 const mongoose = require('mongoose');
 
 const melodySchema = new mongoose.Schema({
-  notes: [String],
-  userNotes: [String],
+  notes: [{
+    type: String,
+    required: true,
+  }],
+  userNotes: [{
+    type: String,
+    required: true,
+  }],
+  scale: String,
   correct: Number,
   accuracy: Number,
   result:String,

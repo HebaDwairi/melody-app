@@ -5,13 +5,15 @@ const bcrypt = require('bcrypt');
 
 router.get('/', async(request, response, next) => {
   try {
-    const users = await User.find({}).populate('melodies', {
-      notes: 1, 
-      userNotes: 1,
-      correct: 1,
-      accuracy: 1,
-      result: 1,
-    });
+    const users = await User
+      .find({})
+      .populate('melodies', {
+        notes: 1, 
+        userNotes: 1,
+        correct: 1,
+        accuracy: 1,
+        result: 1,
+      });
     response.json(users);
   }
   catch (err) {
@@ -59,7 +61,7 @@ router.delete('/:id', async (request, response, next) => {
   try {
     const id = request.params.id;
     await User.findByIdAndDelete(id);
-    response.status(204);
+    response.status(204).end();
   }
   catch (err) {
     next(err);
