@@ -45,7 +45,7 @@ const Controls = ({onPlay, onGenerate, melody, setDetectedNote, detectedNote, se
   }, [detectedNote]);
 
   return (
-    <div className="bg-secondary dark:bg-secondary-d p-4 m-6 flex justify-center gap-4 rounded-lg font-bold">
+    <div className="bg-secondary dark:bg-secondary-d p-4 m-6 flex justify-center gap-4 rounded-lg font-bold border-2 border-primary/40">
       <button className="btn" onClick={onGenerate}>
         Generate
       </button>

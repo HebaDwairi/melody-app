@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
-  
+    const navigate = useNavigate();
+
     useEffect(() => {
       const theme = localStorage.getItem('theme');
       if (theme === 'dark') {
@@ -32,7 +34,7 @@ const Header = () => {
           <button onClick={toggleTheme} className="btn">
             {isDarkMode ? '☀️' : '🌙'}
           </button>
-          <button className="btn">
+          <button className="btn" onClick={() => navigate('login')}>
             Login
           </button>
         </div>
