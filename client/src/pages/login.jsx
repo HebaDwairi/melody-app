@@ -1,7 +1,5 @@
 import { useState } from "react";
-import loginService from '../services/login';
 import usersService from '../services/users';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../contexts/authContext";
 
 const Login = () => {
@@ -11,8 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const navigate = useNavigate();
-  const {login, logout, user} = useAuth();
+  const {login} = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
