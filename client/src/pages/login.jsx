@@ -1,5 +1,8 @@
 import { useState } from "react";
 import loginService from '../services/login';
+import usersService from '../services/users';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../contexts/authContext";
 
 const Login = () => {
   const [isLogin, setIslogin] = useState(true);
@@ -7,6 +10,9 @@ const Login = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const navigate = useNavigate();
+  const {login, logout, user} = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,10 +23,8 @@ const Login = () => {
         password
       }
 
-      loginService
-        .login(credentials)
-        .then(res => {
-          console.log(res);
+      login(credentials)
+        .then(() => {
           setUsername('');
           setPassword('');
           setErrorMessage('');
@@ -28,10 +32,30 @@ const Login = () => {
         .catch(error => {
           console.log(error.response.data.error);
           setErrorMessage(error.response.data.error);
-        })
+        });
     }
     else {
       console.log('rehister')
+      const userObj = {
+        username,
+        name,
+        password
+      }
+
+      usersService
+        .create(userObj)
+        .then(res => {
+          console.log(res);
+          setUsername('');
+          setName('');
+          setPassword('');
+          setErrorMessage('');
+          setIslogin(true);
+        })
+        .catch(error => {
+          console.log(error.response.data.error);
+          setErrorMessage(error.response.data.error);
+        });
     }
   }
   return(
