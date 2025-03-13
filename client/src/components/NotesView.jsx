@@ -126,7 +126,7 @@ const NotesView = ({melody, detectedNote, data, setData}) => {
         </LineChart>
       </ResponsiveContainer>
       </div>
-      <div className="h-8 p-1 text-2xl text-primary-d m-auto">
+      <div className="h-8 p-1 text-xl text-primary-d m-auto">
         {final ? `Result : ${final}` : null}
       </div>
     </div>

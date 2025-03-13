@@ -28,11 +28,14 @@ const Home = () => {
 
   return (
     <div className="bg-background dark:bg-background-d flex flex-col text-text dark:text-text-d ">
-      <div className="flex px-14">
-        <Settings 
-          setOptions={setOptions} 
-          options={options}/>
-        <div className="flex flex-col flex-1 overflow-hidden gap-0">
+      <div className="flex justify-center sm:px-14">
+        <div className='hidden sm:flex'>
+          <Settings 
+            setOptions={setOptions} 
+            options={options}
+          />
+        </div>
+        <div className="flex flex-col flex-1 gap-0">
           <NotesView 
             melody={curMelody} 
             detectedNote={detectedNote} 
@@ -45,6 +48,12 @@ const Home = () => {
             setDetectedNote={setDetectedNote} 
             detectedNote={detectedNote} 
             setData={setData}/>
+          <div className='sm:hidden'>
+            <Settings 
+              setOptions={setOptions} 
+              options={options}
+            />
+          </div>
         </div>
       </div>
     </div>

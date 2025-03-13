@@ -1,5 +1,6 @@
 import NoteDetector from "../services/NoteDetector";
 import { useEffect, useRef, useState } from "react";
+import { Repeat, Play, Disc, Pause } from 'lucide-react';
 
 const Controls = ({onPlay, onGenerate, melody, setDetectedNote, detectedNote, setData}) => {
   const [isRecording, setIsRecording] = useState(false);
@@ -45,15 +46,15 @@ const Controls = ({onPlay, onGenerate, melody, setDetectedNote, detectedNote, se
   }, [detectedNote]);
 
   return (
-    <div className="bg-secondary dark:bg-secondary-d p-4 m-6 flex justify-center gap-4 rounded-lg font-bold border-2 border-primary/40">
+    <div className="bg-secondary dark:bg-secondary-d p-4 m-6 flex justify-center gap-4 rounded-lg font-bold border-2 border-primary/40 mb-12 sm:mb-6">
       <button className="btn" onClick={onGenerate}>
-        Generate
+        <Repeat />
       </button>
       <button className="btn" onClick={onPlay}>
-        Play
+        <Play />
       </button>
       <button className="btn" onClick={handleRecording}>
-       {isRecording ? "stop" : "record"}
+       {isRecording ? <Pause /> : <Disc />}
       </button>
     </div>
   );

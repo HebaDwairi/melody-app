@@ -4,7 +4,7 @@ const Settings = ({options, setOptions}) => {
     all.unshift('All scales')
 
     return (
-      <div className="bg-secondary dark:bg-secondary-d  p-6 m-6 rounded-md flex flex-col gap-2 w-55 mr-0 font-bold border-2 border-primary/40">
+      <div className=" sm:block bg-secondary dark:bg-secondary-d p-6 m-6 rounded-md flex flex-col gap-2 sm:w-55 sm:mr-0 font-bold border-2 border-primary/40">
         <h3 className="border-b-2 border-primary/40 pb-2">Options</h3>
         <div className="space-y-1">
           <label className="block">Scale</label>
