@@ -11,32 +11,30 @@ const Login = () => {
 
   const {login} = useAuth();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if(isLogin) {
       const credentials = {
-        username,
-        password
+        username: username.trim(),
+        password: password.trim(),
       }
 
-      login(credentials)
-        .then(() => {
-          setUsername('');
-          setPassword('');
-          setErrorMessage('');
-        })
-        .catch(error => {
-          console.log(error.response.data.error);
-          setErrorMessage(error.response.data.error);
-        });
+      const result = await login(credentials);
+
+      if (result.success) {
+        console.log('logged in as ' + result.data.name);
+      }
+      else {
+        setErrorMessage(result.error);
+      }
     }
     else {
       console.log('rehister')
       const userObj = {
-        username,
-        name,
-        password
+        username: username.trim(),
+        name: name.trim(),
+        password: password.trim()
       }
 
       usersService

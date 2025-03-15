@@ -21,11 +21,12 @@ export const AuthProvider = ({ children }) => {
       .then(res => {
         console.log(res);
         localStorage.setItem('user', JSON.stringify(res));
+        setUser(res);
         navigate('/');
+        return({success: true, data: res});
       })
       .catch(error => {
-        console.log(error.response.data.error);
-        throw error.response.data.error;
+        return({success: false, error: error.response.data.error});
       });
   }
 

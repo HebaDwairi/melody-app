@@ -26,6 +26,7 @@ router.post('/', async (request, response, next) => {
       token: token,
       username: user.username,
       name: user.name,
+      id: user._id,
     });
   }
   catch (error) {

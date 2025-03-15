@@ -42,8 +42,8 @@ const Header = () => {
             <button className="btn" onClick={() => navigate('login')}>
               Login
             </button>:
-            <button>
-              <CircleUserRound color="#7d936c" size={40}/>
+            <button onClick={() => {navigate('profile')}}  className="btn">
+              <CircleUserRound />
             </button>  
           }
         </div>

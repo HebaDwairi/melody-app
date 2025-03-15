@@ -88,8 +88,8 @@ const NotesView = ({melody, detectedNote, data, setData}) => {
     }, [melody, setData])
 
   return (
-    <div className="bg-secondary dark:bg-secondary-d p-6 m-6 rounded-md mb-0 justify-center flex-col flex border-2 border-primary/40">
-      <div className=" rounded-md h-full p-4 flex items-center text-2xl" style={{height:'50vh'}}>
+    <div className=" overflow-x-auto bg-secondary dark:bg-secondary-d p-6 m-6 rounded-md mb-0 justify-center flex-col flex border-2 border-primary/40">
+      <div className=" rounded-md h-full p-4 flex items-center text-2xl min-w-[250px]" style={{height:'50vh'}}>
       <ResponsiveContainer width="100%" height="100%" >
         <LineChart
           width={500}
