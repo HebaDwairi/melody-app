@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { CircleUserRound, Moon, Sun } from 'lucide-react';
 import { useAuth } from "../contexts/authContext";
+import DropDown from "./dropDown";
 
 const Header = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [menuVisible, setMenuVisible] = useState(false);
     const navigate = useNavigate();
+    const dropdownRef = useRef(null);
 
     const {user} = useAuth();
 
@@ -19,6 +22,22 @@ const Header = () => {
         document.documentElement.classList.remove('dark');
       }
     }, []);
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setMenuVisible(false);
+        }
+      };
+  
+      if (menuVisible) {
+        document.addEventListener("mousedown", handleClickOutside);
+      }
+  
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [menuVisible]);
   
     const toggleTheme = () => {
       if (isDarkMode) {
@@ -33,7 +52,7 @@ const Header = () => {
   
     return (
       <div className=" p-3 flex text-xl font-bold justify-between px-12 items-center border-primary/40 border-b-2">
-        <div>Melody App</div>
+        <div onClick={() => {navigate('/')}} className="hover:cursor-default">Melody App</div>
         <div className="flex gap-6">
           <button onClick={toggleTheme} className="btn">
             {isDarkMode ? <Sun /> : <Moon />}
@@ -42,10 +61,11 @@ const Header = () => {
             <button className="btn" onClick={() => navigate('login')}>
               Login
             </button>:
-            <button onClick={() => {navigate('profile')}}  className="btn">
+            <button onClick={() => {setMenuVisible(!menuVisible)}}  className="btn">
               <CircleUserRound />
             </button>  
           }
+          {menuVisible && <DropDown ref={dropdownRef}/>}
         </div>
       </div>
     );

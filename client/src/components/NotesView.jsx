@@ -43,6 +43,15 @@ const NotesView = ({melody, detectedNote, data, setData}) => {
   const [res, setRes] = useState({correct: 0, distances: 0});
   const [final, setFinal] = useState('');
 
+  const saveMelody = async () => {
+    try {
+      console.log(data);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
       if(detectedNote.note !== null){
           console.log(detectedNote, melody[detectedNote.count]);
@@ -76,7 +85,7 @@ const NotesView = ({melody, detectedNote, data, setData}) => {
             setFinal(`${res.correct + (midi1 === midi2 ? 1 : 0)} / ${melody.length}
                |   Accuracy: ${(100 * (1 - errorRate)).toFixed(1)}   %`);
             setRes({correct: 0, distances: 0});
-            
+            saveMelody();
           }
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
