@@ -1,7 +1,8 @@
 import { useState,useEffect } from "react";
 import { Note } from "tonal";
 import { LineChart, Line, Tooltip, ResponsiveContainer } from 'recharts';
-
+import useMelodiesService from "../services/melodyService";
+import Melody from "../services/melody";
 
 const CustomizedDot = (props) => {
   const { cx, cy, stroke, payload,type} = props;
@@ -42,10 +43,24 @@ const CustomTooltip = ({ active, payload }) => {
 const NotesView = ({melody, detectedNote, data, setData}) => {
   const [res, setRes] = useState({correct: 0, distances: 0});
   const [final, setFinal] = useState('');
+  const { create } = useMelodiesService();
 
-  const saveMelody = async () => {
+  const saveMelody = async (last, result, accuracy) => {
     try {
-      console.log(data);
+      console.log(data.concat(last), result, accuracy);
+      const userNotes = data.concat(last).map(d => d.userNote);
+      const notes = melody.map(e => e.note);
+
+      const melodyObj = {
+        notes: notes,
+        userNotes: userNotes,
+        scale: Melody.curScale,
+        correct: result === melody.length,
+        accuracy: accuracy,
+        result: result,
+      }
+
+      await create(melodyObj);
     }
     catch (error) {
       console.log(error);
@@ -81,11 +96,12 @@ const NotesView = ({melody, detectedNote, data, setData}) => {
 
           if(detectedNote.count === melody.length - 1){
             const errorRate = (res.distances + Math.abs(midi1 - midi2)) / (11 * melody.length);
-
-            setFinal(`${res.correct + (midi1 === midi2 ? 1 : 0)} / ${melody.length}
-               |   Accuracy: ${(100 * (1 - errorRate)).toFixed(1)}   %`);
+            const accuracy = (100 * (1 - errorRate)).toFixed(1);
+            const result = `${res.correct + (midi1 === midi2 ? 1 : 0)} / ${melody.length}
+               |   Accuracy: ${accuracy}   %`;
+            setFinal(result);
+            saveMelody(dataPoint,  res.correct, accuracy);
             setRes({correct: 0, distances: 0});
-            saveMelody();
           }
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,7 +110,8 @@ const NotesView = ({melody, detectedNote, data, setData}) => {
    useEffect(() => {
       setData([]);
       setFinal('');
-    }, [melody, setData])
+   }, [melody, setData]);
+
 
   return (
     <div className=" overflow-x-auto bg-secondary dark:bg-secondary-d p-6 m-6 rounded-md mb-0 justify-center flex-col flex border-2 border-primary/40">

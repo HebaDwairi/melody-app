@@ -3,13 +3,13 @@ import { ScaleType , Scale} from 'tonal';
 
 const allScales = ScaleType.names();
 const roots = ["C", "D", "E", "F", "G", "A", "B"];
+let curScale;
 
 const generate = (options) => {
     Tone.getTransport().bpm.value = options.bpm;
     
     const randomRoot = roots[Math.floor(Math.random() * roots.length)] + "3";
 
-    let curScale;
     if(options.scale === 'All scales'){
         curScale = allScales[Math.floor(Math.random() * allScales.length)];
     }
@@ -53,4 +53,4 @@ const play = (melody) => {
     Tone.getTransport().start();
 };
 
-export default {play, generate};
+export default {play, generate, curScale};
