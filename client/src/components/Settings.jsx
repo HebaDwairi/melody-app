@@ -30,15 +30,23 @@ const Settings = ({options, setOptions}) => {
         </div>
         <div className="space-y-1">
           <label className="block">Tuning</label>
-          <input className="inp" 
-          value={options.tuning}
-          onChange={(e) => setOptions({...options, tuning: e.target.value})}/>
+          <select
+            className="inp"  
+            value={options.tuning}
+            onChange={(e) => setOptions({...options, synth: e.target.value})}
+          >
+            <option value="Default">Standard</option>
+          </select>
         </div>
         <div className="space-y-1">
           <label className="block">Synth</label>
-          <input className="inp"
-          value={options.synth}
-          onChange={(e) => setOptions({...options, synth: e.target.value})}/>
+          <select
+            className="inp"  
+            value={options.synth}
+            onChange={(e) => setOptions({...options, synth: e.target.value})}
+          >
+            <option value="Default">Default</option>
+          </select>
         </div>
       </div>
     );

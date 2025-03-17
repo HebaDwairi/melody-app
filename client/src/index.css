@@ -4,7 +4,7 @@
     @apply px-4 py-2 bg-primary dark:bg-primary-d rounded-lg hover:bg-accent dark:hover:bg-accent-d transition-colors text-white active:bg-accent;
 }
 .inp {
-  @apply w-full p-2 rounded bg-background/60 dark:bg-background-d/60 border-2 border-primary/40 dark:border-primary-d/40 text-black dark:text-white;
+  @apply w-full p-2 mb-3 rounded bg-background/60 dark:bg-background-d/60 border-2 border-primary/40 dark:border-primary-d/40 text-black dark:text-white;
 }
 
 @theme {
