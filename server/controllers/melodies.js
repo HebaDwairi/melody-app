@@ -79,4 +79,23 @@ router.delete('/', userExtractor ,async (request, response, next) => {
   }
 });
 
+router.get('/user/:id', userExtractor, async (request, response, next) => {
+  try {
+    const user = request.user;
+    if(!user) {
+      return response.status(403).json({error: 'user missing'});
+    }
+
+    if(!user.id === request.params.id) {
+      return response.status(403);
+    }
+
+    const melodies = await Melody.find({ user: user.id });
+    response.json(melodies);
+  }
+  catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

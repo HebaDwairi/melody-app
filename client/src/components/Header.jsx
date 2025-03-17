@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { CircleUserRound, Moon, Sun } from 'lucide-react';
 import { useAuth } from "../contexts/authContext";
-import DropDown from "./dropDown";
+import DropDown from "./DropDown";
 
 const Header = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);

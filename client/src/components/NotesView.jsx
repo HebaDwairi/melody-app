@@ -47,14 +47,13 @@ const NotesView = ({melody, detectedNote, data, setData}) => {
 
   const saveMelody = async (last, result, accuracy) => {
     try {
-      console.log(data.concat(last), result, accuracy);
       const userNotes = data.concat(last).map(d => d.userNote);
       const notes = melody.map(e => e.note);
 
       const melodyObj = {
         notes: notes,
         userNotes: userNotes,
-        scale: Melody.curScale,
+        scale: Melody.getScale(),
         correct: result === melody.length,
         accuracy: accuracy,
         result: result,

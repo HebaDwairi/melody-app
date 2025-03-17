@@ -53,4 +53,8 @@ const play = (melody) => {
     Tone.getTransport().start();
 };
 
-export default {play, generate, curScale};
+const getScale = () => {
+    return curScale;
+}
+
+export default {play, generate, getScale};

@@ -1,16 +1,17 @@
 import axios from 'axios';
 import { useAuth } from '../contexts/authContext';
+import { useCallback } from 'react';
 
 const baseUrl = '/api/melodies';
 
 const useMelodiesService = () => {
-  const { user } = useAuth();  // Now we're inside a function so useAuth works
+  const { user } = useAuth();
 
-  const create = async (melodyObj) => {
+  const create = useCallback(async (melodyObj) => {
     try {
       const res = await axios.post(baseUrl, melodyObj, {
         headers: {
-          'Authorization': `Bearer ${user?.token}`,  // Ensure user is defined
+          'Authorization': `Bearer ${user?.token}`,
         },
       });
       return res.data;
@@ -18,9 +19,24 @@ const useMelodiesService = () => {
       console.error("Error creating melody:", error);
       throw error;
     }
-  };
+  }, [user]);
 
-  return { create };
+  const getUserMelodies = useCallback(async () => {
+    try {
+      const res = await axios.get(`${baseUrl}/user/${user?.id}`, {
+        headers: {
+          'Authorization': `Bearer ${user?.token}`,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      console.error("Error getting user melodies:", error);
+      console.log(user)
+      throw error;
+    }
+  }, [user]);
+
+  return { create, getUserMelodies};
 };
 
 export default useMelodiesService;
